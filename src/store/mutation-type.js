@@ -1,0 +1,11 @@
+export const USER = {
+  LOGIN: 'LOGIN'
+
+}
+
+export const CLAZZ = {
+  SHOW_CREATE_DIALOG: 'SHOW_CREATE_DIALOG',
+  HIDE_CREATE_DIALOG: 'HIDE_CREATE_DIALOG',
+  CREATE: 'CREATE'
+
+}

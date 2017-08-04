@@ -92,9 +92,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            window.alert('submit!')
           } else {
-            console.log('error submit!!')
             return false
           }
         })

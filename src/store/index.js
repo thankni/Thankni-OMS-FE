@@ -4,7 +4,6 @@ import user from './modules/user'
 import clazz from './modules/clazz'
 
 Vue.use(Vuex)
-console.log(clazz)
 const store = new Vuex.Store({
   modules: {
     user,

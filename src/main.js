@@ -7,6 +7,7 @@ import App from './App'
 import router from 'router'
 import store from './store'
 import 'assets/sass/global.scss'
+import 'animate.css'
 
 Vue.use(ElementUI)
 /* eslint-disable no-new */

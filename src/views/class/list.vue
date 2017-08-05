@@ -18,8 +18,10 @@
         width="180">
       </el-table-column>
       <el-table-column
-        prop="address"
-        label="地址">
+        label="操作">
+        <template scope="scope">
+          <el-button size="small" @click="deletes(scope.row)">删除</el-button>
+        </template>
       </el-table-column>
     </el-table>
     <class-create :p_dialog-show.sync="showCreateClassDialog"></class-create>
@@ -34,18 +36,22 @@
     data() {
       return {
         tableData: [{
+          id: 1,
           date: '2016-05-02',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
+          id: 2,
           date: '2016-05-04',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1517 弄'
         }, {
+          id: 3,
           date: '2016-05-01',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1519 弄'
         }, {
+          id: 4,
           date: '2016-05-03',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1516 弄'
@@ -64,7 +70,14 @@
       ]),
       toShowCreateClassDialog() {
         this.$store.dispatch('clazz/showCreateDialog')
+      },
+      deletes(item) {
+
       }
+    },
+    create() {
+      // 获取所有类别
+      this.$store.dispatch('clazz/getAllClazz')
     }
 
   }

@@ -1,4 +1,5 @@
 import * as TYPES from '../mutation-type'
+import getAllClazzService from '../../services/clazz'
 
 const Clazz = {
   namespaced: true,
@@ -9,6 +10,9 @@ const Clazz = {
     getShowCreateDialog: (state, getters, rootState, rootGetters) => state.showCreateDialog
   },
   mutations: {
+    [TYPES.CLAZZ.GET_ALL_CLAZZ](state) {
+
+    },
     [TYPES.CLAZZ.HIDE_CREATE_DIALOG](state) {
       state.showCreateDialog && (state.showCreateDialog = false)
     },
@@ -21,6 +25,9 @@ const Clazz = {
 
   },
   actions: {
+    getAllClazz({ commit }) {
+      commit(TYPES.CLAZZ.GET_ALL_CLAZZ)
+    },
     showCreateDialog({ dispatch, commit, getters, rootGetters }) {
       commit(TYPES.CLAZZ.SHOW_CREATE_DIALOG)
     },
@@ -28,7 +35,11 @@ const Clazz = {
       commit(TYPES.CLAZZ.HIDE_CREATE_DIALOG)
     },
     create({ commit }, name) {
-      commit(TYPES.CLAZZ.CREATE, name)
+      return new Promise((resolve, reject) => {
+        getAllClazzService().then(response => {
+          commit(TYPES.CLAZZ.CREATE, name)
+        }).catch()
+      })
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu default-active="1" class="el-menu-vertical-demo order-left-nav" @open="handleOpen" @close="handleClose">
+    <el-menu default-active="1" class="el-menu-vertical-demo order-left-nav">
       <el-menu-item index="1" @click="routerLink('/order/list')"><i class="el-icon-menu"></i>订单列表</el-menu-item>
     </el-menu>
     <router-view class="order-content"></router-view>

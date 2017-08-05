@@ -17,7 +17,7 @@
   export default {
     data() {
       return {
-        activeIndex: '2',
+        activeIndex: '1',
         activeIndex2: '1'
       }
     },

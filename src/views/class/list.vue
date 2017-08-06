@@ -5,20 +5,22 @@
     </div>
     <el-table
       :data="tableData"
+      border
       stripe
       style="width: 100%">
       <el-table-column
         prop="date"
-        label="日期"
+        label="名称"
         width="180">
       </el-table-column>
       <el-table-column
         prop="name"
-        label="姓名"
-        width="180">
+        label="描述">
       </el-table-column>
       <el-table-column
-        label="操作">
+        label="操作"
+        align="center"
+        width="100">
         <template scope="scope">
           <el-button size="small" @click="deletes(scope.row)">删除</el-button>
         </template>

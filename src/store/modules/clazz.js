@@ -1,17 +1,18 @@
 import * as TYPES from '../mutation-type'
-import getAllClazzService from '../../services/clazz'
+import { createService, getAllClazzService } from '../../services/clazz'
 
 const Clazz = {
   namespaced: true,
   state: {
+    clazzList: [],
     showCreateDialog: false
   },
   getters: {
     getShowCreateDialog: (state, getters, rootState, rootGetters) => state.showCreateDialog
   },
   mutations: {
-    [TYPES.CLAZZ.GET_ALL_CLAZZ](state) {
-
+    [TYPES.CLAZZ.SET_ALL_CLAZZ](state, allClazz) {
+      state.clazzList = allClazz
     },
     [TYPES.CLAZZ.HIDE_CREATE_DIALOG](state) {
       state.showCreateDialog && (state.showCreateDialog = false)
@@ -26,7 +27,15 @@ const Clazz = {
   },
   actions: {
     getAllClazz({ commit }) {
-      commit(TYPES.CLAZZ.GET_ALL_CLAZZ)
+      return new Promise((resolve, reject) => {
+        getAllClazzService().then(response => {
+          commit(TYPES.CLAZZ.SET_ALL_CLAZZ, response.data)
+          resolve(response.data)
+        }).catch(error => {
+          reject(error)
+        })
+        commit(TYPES.CLAZZ.GET_ALL_CLAZZ)
+      })
     },
     showCreateDialog({ dispatch, commit, getters, rootGetters }) {
       commit(TYPES.CLAZZ.SHOW_CREATE_DIALOG)
@@ -36,9 +45,12 @@ const Clazz = {
     },
     create({ commit }, name) {
       return new Promise((resolve, reject) => {
-        getAllClazzService().then(response => {
+        createService().then(response => {
           commit(TYPES.CLAZZ.CREATE, name)
-        }).catch()
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
       })
     }
   }

@@ -1,6 +1,7 @@
 import * as TYPES from '../mutation-type'
-import { createService, getAllClazzService } from '../../services/clazz'
+import ClazzService from '../../services/clazzService'
 
+const clazzService = new ClazzService()
 const Clazz = {
   namespaced: true,
   state: {
@@ -27,14 +28,14 @@ const Clazz = {
   },
   actions: {
     getAllClazz({ commit }) {
+      debugger
       return new Promise((resolve, reject) => {
-        getAllClazzService().then(response => {
+        clazzService.queryAll().then(response => {
           commit(TYPES.CLAZZ.SET_ALL_CLAZZ, response.data)
           resolve(response.data)
         }).catch(error => {
           reject(error)
         })
-        commit(TYPES.CLAZZ.GET_ALL_CLAZZ)
       })
     },
     showCreateDialog({ dispatch, commit, getters, rootGetters }) {
@@ -45,7 +46,7 @@ const Clazz = {
     },
     create({ commit }, name) {
       return new Promise((resolve, reject) => {
-        createService().then(response => {
+        clazzService.create().then(response => {
           commit(TYPES.CLAZZ.CREATE, name)
           resolve()
         }).catch(error => {

@@ -77,8 +77,9 @@
 
       }
     },
-    create() {
+    created() {
       // 获取所有类别
+      debugger
       this.$store.dispatch('clazz/getAllClazz')
     }
 

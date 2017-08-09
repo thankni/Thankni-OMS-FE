@@ -1,6 +1,7 @@
 import * as TYPES from '../mutation-type'
-// import { loginService } from '../../services/user'
+import LoginService from '../../services/userService'
 
+const loginService = new LoginService()
 const User = {
   namespaced: true,
   state: {
@@ -34,19 +35,22 @@ const User = {
   actions: {
     login({ commit }, loginInfo) {
       return new Promise((resolve, reject) => {
-        if (loginInfo.username && loginInfo.password) {
-          loginInfo.token = '3f34f34rf3f3f3f3f3rf'
-          commit(TYPES.USER.LOGIN, loginInfo)
-          resolve()
-        } else {
-          reject('没用户名密码还想进去？')
-        }
-        // loginService(loginInfo).then(response => {
-        //   commit(TYPES.USER.LOGIN, response)
+        // if (loginInfo.username && loginInfo.password) {
+        //   loginInfo.token = '3f34f34rf3f3f3f3f3rf'
+        //   commit(TYPES.USER.LOGIN, loginInfo)
         //   resolve()
-        // }).catch(error => {
-        //   reject(error)
-        // })
+        // } else {
+        //   reject('没用户名密码还想进去？')
+        // }
+
+        loginService.login(loginInfo).then(response => {
+          debugger
+          commit(TYPES.USER.LOGIN, response)
+          resolve()
+        }).catch(error => {
+          debugger
+          reject(error)
+        })
       })
     }
   }

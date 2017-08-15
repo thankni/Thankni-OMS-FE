@@ -15,6 +15,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import appInfo from 'config'
 export default {
   data() {
     return {
@@ -32,7 +33,9 @@ export default {
       'login'
     ]),
     toLogin() {
-      this.$store.dispatch('user/login', this.loginFrom).then(() => {
+      this.$store.dispatch('user/login', this.loginFrom).then((loginInfo) => {
+        // cookie 记录用户信息
+        this.$cookie.set(appInfo.session, JSON.stringify(loginInfo))
         this.$router.push('/order/list')
       }).catch()
     }

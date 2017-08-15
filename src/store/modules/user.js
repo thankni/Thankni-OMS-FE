@@ -1,14 +1,14 @@
 import * as TYPES from '../mutation-type'
-import LoginService from '../../services/userService'
-
-const loginService = new LoginService()
+// import LoginService from '../../services/userService'
+//
+// const loginService = new LoginService()
 const User = {
   namespaced: true,
   state: {
     account: '',
     status: '',
     code: '',
-    token: '',
+    token: null,
     name: '',
     avatar: '',
     introduction: '',
@@ -23,34 +23,45 @@ const User = {
     avatar: state => state.avatar,
     introduction: state => state.introduction,
     roles: state => state.roles
-
   },
   mutations: {
     [TYPES.USER.LOGIN](state, loginUser) {
-      state.account = loginUser.account
       state.token = loginUser.token
-      state.name = loginUser.name
+      state.name = loginUser.username
     }
   },
   actions: {
     login({ commit }, loginInfo) {
       return new Promise((resolve, reject) => {
-        // if (loginInfo.username && loginInfo.password) {
-        //   loginInfo.token = '3f34f34rf3f3f3f3f3rf'
-        //   commit(TYPES.USER.LOGIN, loginInfo)
-        //   resolve()
-        // } else {
-        //   reject('没用户名密码还想进去？')
-        // }
+        if (loginInfo.username && loginInfo.password) {
+          loginInfo.token = '3f34f34rf3f3f3f3f3rf'
+          commit(TYPES.USER.LOGIN, loginInfo)
+          debugger
+          resolve(loginInfo)
+        } else {
+          reject('没用户名密码还想进去？')
+        }
 
-        loginService.login(loginInfo).then(response => {
-          debugger
-          commit(TYPES.USER.LOGIN, response)
-          resolve()
-        }).catch(error => {
-          debugger
-          reject(error)
-        })
+        // loginService.login(loginInfo).then(response => {
+        //   debugger
+        //   commit(TYPES.USER.LOGIN, response)
+        //   resolve()
+        // }).catch(error => {
+        //   debugger
+        //   reject(error)
+        // })
+      })
+    },
+    getSession({ commit, getters }) {
+      return Promise.resolve({
+        account: getters.account,
+        status: getters.status,
+        code: getters.code,
+        token: getters.token,
+        name: getters.name,
+        avatar: getters.avatar,
+        introduction: getters.introduction,
+        roles: getters.roles
       })
     }
   }

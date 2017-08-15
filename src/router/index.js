@@ -18,7 +18,7 @@ import Crm from 'views/crm'
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: '/login', component: Login, name: '登陆'
@@ -64,3 +64,6 @@ export default new VueRouter({
     }
   ]
 })
+
+
+export default router

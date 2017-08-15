@@ -1,6 +1,6 @@
 export const USER = {
-  LOGIN: 'LOGIN'
-
+  LOGIN: 'LOGIN',
+  LOGOUT: 'OUT'
 }
 
 export const CLAZZ = {

@@ -39,6 +39,12 @@ export default {
         this.$router.push('/order/list')
       }).catch()
     }
+  },
+  created() {
+    this.$store.dispatch('user/logout').then(() => {
+      // cookie 删除用户信息
+      this.$cookie.remove(appInfo.session)
+    })
   }
 }
 </script>

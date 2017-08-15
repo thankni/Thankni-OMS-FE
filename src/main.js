@@ -9,10 +9,9 @@ import store from './store'
 import 'assets/sass/global.scss'
 import 'animate.css'
 import VueCookie from 'cookie-in-vue'
-import appInfo from './config'
+import appInfo from './config/index.js'
 
 Vue.use(ElementUI)
-Vue.use(VueCookie)
 Vue.use(VueCookie)
 /* eslint-disable no-new */
 new Vue({
@@ -21,20 +20,20 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-const routeWhiteList = ['login']
+const routeWhiteList = ['/login']
 // 导航钩子
 router.beforeEach((to, from, next) => {
+  debugger
   if (routeWhiteList.indexOf(to.path) !== -1) {
     next()
   } else {
     // 登录验证
-    const session = JSON.parse(Vue.cookie.get(appInfo.session))
-
+    const session = Vue.cookie.get(appInfo.session) && JSON.parse(Vue.cookie.get(appInfo.session))
     if (session && session.token && session.username) {
       next()
     } else {
       next('/login')
     }
-    // (store.getters['user/token'] === null) ? next() : next({path: '/order/list'})
   }
 })
+

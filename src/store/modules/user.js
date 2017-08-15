@@ -28,6 +28,18 @@ const User = {
     [TYPES.USER.LOGIN](state, loginUser) {
       state.token = loginUser.token
       state.name = loginUser.username
+    },
+    [TYPES.USER.LOGOUT](state) {
+      state = {
+        account: '',
+        status: '',
+        code: '',
+        token: null,
+        name: '',
+        avatar: '',
+        introduction: '',
+        roles: []
+      }
     }
   },
   actions: {
@@ -50,6 +62,12 @@ const User = {
         //   debugger
         //   reject(error)
         // })
+      })
+    },
+    logout({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit(TYPES.USER.LOGOUT)
+        resolve()
       })
     },
     getSession({ commit, getters }) {

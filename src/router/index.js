@@ -13,8 +13,10 @@ import ProductDetail from '../views/product/detail'
 import ProductCreate from '../views/product/create'
 
 import ClassList from '../views/class/list'
-
 import Crm from 'views/crm'
+
+import appInfo from '../config/index'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -65,5 +67,21 @@ const router = new VueRouter({
   ]
 })
 
+const routeWhiteList = ['/login']
+// 导航钩子
+router.beforeEach((to, from, next) => {
+  if (routeWhiteList.indexOf(to.path) !== -1) {
+    next()
+  } else {
+    // 登录验证
+    const session = Vue.cookie.get(appInfo.session) && JSON.parse(Vue.cookie.get(appInfo.session))
+    if (session && session.token && session.username) {
+      store.dispatch('user/setSession', session)
+      next()
+    } else {
+      next('/login')
+    }
+  }
+})
 
 export default router

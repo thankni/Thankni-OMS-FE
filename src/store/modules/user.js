@@ -40,6 +40,10 @@ const User = {
         introduction: '',
         roles: []
       }
+    },
+    [TYPES.USER.SET_SESSION](state, session) {
+      state.name = session.username
+      state.token = session.token
     }
   },
   actions: {
@@ -81,6 +85,9 @@ const User = {
         introduction: getters.introduction,
         roles: getters.roles
       })
+    },
+    setSession({ commit }, session) {
+      commit(TYPES.USER.SET_SESSION, session)
     }
   }
 }

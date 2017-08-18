@@ -1,6 +1,7 @@
 export const USER = {
   LOGIN: 'LOGIN',
-  LOGOUT: 'OUT'
+  LOGOUT: 'OUT',
+  SET_SESSION: 'SET_SESSION'
 }
 
 export const CLAZZ = {

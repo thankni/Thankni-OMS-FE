@@ -7,7 +7,7 @@
       <el-menu-item index="3" @click="routerLink('/order/detail')">数据中心</el-menu-item>
       <el-menu-item index="4" @click="routerLink('/crm')">用户</el-menu-item>
 
-      <el-submenu index="100">
+      <el-submenu class="user" index="100">
         <template slot="title">{{name}}</template>
         <el-menu-item index="100-1">选项1</el-menu-item>
         <el-menu-item index="100-2">选项2</el-menu-item>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
   export default {
     data() {
       return {
@@ -37,9 +37,6 @@
       })
     },
     methods: {
-      ...mapActions('user', [
-        'getSession'
-      ]),
       routerLink(to) {
         this.$router.push(to)
       },
@@ -48,9 +45,6 @@
       }
     },
     created() {
-//      this.$store.dispatch('user/getSession').then(function(userInfo) {
-//        this.userInfo = userInfo
-//      })
     }
   }
 </script>
@@ -67,6 +61,11 @@
     .top-nav-view {
       flex:1;
       display: flex;
+    }
+
+    .user {
+      float: right;
+      margin-right: 50px;
     }
 
   }

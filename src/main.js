@@ -10,6 +10,8 @@ import 'assets/sass/global.scss'
 import 'animate.css'
 import VueCookie from 'cookie-in-vue'
 
+import './mock/index.js'
+
 Vue.use(ElementUI)
 Vue.use(VueCookie)
 /* eslint-disable no-new */

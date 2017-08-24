@@ -14,57 +14,57 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
-import appInfo from 'config'
-export default {
-  data() {
-    return {
-      loginFrom: {
-        username: '',
-        password: ''
-      }
+  import { mapActions } from 'vuex'
+  import appInfo from 'config'
+  export default {
+    data() {
+      return {
+        loginFrom: {
+          username: '',
+          password: ''
+        }
 
+      }
+    },
+    computed: {
+    },
+    methods: {
+      ...mapActions('user', [
+        'login'
+      ]),
+      toLogin() {
+        this.$store.dispatch('user/login', this.loginFrom).then((loginInfo) => {
+          // cookie 记录用户信息
+          this.$cookie.set(appInfo.session, JSON.stringify(loginInfo))
+          this.$router.push('/order')
+        }).catch()
+      }
+    },
+    created() {
+      this.$store.dispatch('user/logout').then(() => {
+        // cookie 删除用户信息
+        this.$cookie.remove(appInfo.session)
+      })
     }
-  },
-  computed: {
-  },
-  methods: {
-    ...mapActions('user', [
-      'login'
-    ]),
-    toLogin() {
-      this.$store.dispatch('user/login', this.loginFrom).then((loginInfo) => {
-        // cookie 记录用户信息
-        this.$cookie.set(appInfo.session, JSON.stringify(loginInfo))
-        this.$router.push('/order/list')
-      }).catch()
-    }
-  },
-  created() {
-    this.$store.dispatch('user/logout').then(() => {
-      // cookie 删除用户信息
-      this.$cookie.remove(appInfo.session)
-    })
   }
-}
 </script>
 <style lang="scss" scoped>
-.login {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .login-form {
-    padding: 40px;
-    width: 400px;
-    background-color: #fff;
-    border: 1px solid #eaeaea;
-  }
-  .login-btn {
+  .login {
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .login-form {
+      padding: 40px;
+      width: 400px;
+      background-color: #fff;
+      border: 1px solid #eaeaea;
+    }
+    .login-btn {
+      width: 100%;
+    }
   }
-}
 
 </style>

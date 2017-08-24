@@ -1,7 +1,6 @@
 import * as TYPES from '../mutation-type'
-// import LoginService from '../../services/userService'
-//
-// const loginService = new LoginService()
+import UserService from '../../services/userService'
+const userService = new UserService()
 const User = {
   namespaced: true,
   state: {
@@ -9,25 +8,38 @@ const User = {
     status: '',
     code: '',
     token: null,
-    name: '',
+    username: '',
     avatar: '',
     introduction: '',
-    roles: []
+    roles: '',
+    permissions: []
   },
   getters: {
     account: state => state.account,
-    status: state => state.status,
-    code: state => state.code,
     token: state => state.token,
-    name: state => state.name,
+    username: state => state.username,
     avatar: state => state.avatar,
-    introduction: state => state.introduction,
-    roles: state => state.roles
+    roles: state => state.roles,
+    permissions: state => state.permissions,
+
+    session: state => {
+      return {
+        account: state.account,
+        token: state.token,
+        username: state.username,
+        avatar: state.avatar,
+        roles: state.roles,
+        permissions: state.permissions
+      }
+    }
   },
   mutations: {
     [TYPES.USER.LOGIN](state, loginUser) {
       state.token = loginUser.token
-      state.name = loginUser.username
+      state.username = loginUser.username
+      state.token = loginUser.token
+      state.permissions = loginUser.permissions
+      state.role = loginUser.role
     },
     [TYPES.USER.LOGOUT](state) {
       state = {
@@ -35,54 +47,51 @@ const User = {
         status: '',
         code: '',
         token: null,
-        name: '',
+        username: '',
         avatar: '',
         introduction: '',
         roles: []
       }
     },
     [TYPES.USER.SET_SESSION](state, session) {
-      state.name = session.username
+      state.username = session.username
       state.token = session.token
     }
   },
   actions: {
     login({ commit }, loginInfo) {
       return new Promise((resolve, reject) => {
-        if (loginInfo.username && loginInfo.password) {
-          loginInfo.token = '3f34f34rf3f3f3f3f3rf'
-          commit(TYPES.USER.LOGIN, loginInfo)
-          debugger
-          resolve(loginInfo)
-        } else {
-          reject('没用户名密码还想进去？')
-        }
+        // if (loginInfo.username && loginInfo.password) {
+        //   loginInfo.token = '3f34f34rf3f3f3f3f3rf'
+        //   commit(TYPES.USER.LOGIN, loginInfo)
+        //   resolve(loginInfo)
+        // } else {
+        //   reject('没用户名密码还想进去？')
+        // }
 
-        // loginService.login(loginInfo).then(response => {
-        //   debugger
-        //   commit(TYPES.USER.LOGIN, response)
-        //   resolve()
-        // }).catch(error => {
-        //   debugger
-        //   reject(error)
-        // })
+        userService.login(loginInfo).then(response => {
+          commit(TYPES.USER.LOGIN, response)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
       })
     },
     logout({ commit }) {
       return new Promise((resolve, reject) => {
-        commit(TYPES.USER.LOGOUT)
         resolve()
+        // userService.logout().then(response => {
+        //   commit(TYPES.USER.LOGOUT)
+        //   resolve()
+        // })
       })
     },
     getSession({ commit, getters }) {
       return Promise.resolve({
         account: getters.account,
-        status: getters.status,
-        code: getters.code,
         token: getters.token,
-        name: getters.name,
+        username: getters.username,
         avatar: getters.avatar,
-        introduction: getters.introduction,
         roles: getters.roles
       })
     },

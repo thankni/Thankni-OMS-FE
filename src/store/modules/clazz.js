@@ -28,7 +28,6 @@ const Clazz = {
   },
   actions: {
     getAllClazz({ commit }) {
-      debugger
       return new Promise((resolve, reject) => {
         clazzService.queryAll().then(response => {
           commit(TYPES.CLAZZ.SET_ALL_CLAZZ, response.data)

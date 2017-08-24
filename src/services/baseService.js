@@ -7,6 +7,9 @@ export default class BaseService {
       timeout: 5000
     }
 
+    this.requestWhiteList = ['login']
+    this.responsetWhiteList = ['login']
+
     const service = axios.create(this.config)
 
     // 请求拦截器
@@ -20,7 +23,7 @@ export default class BaseService {
     // 响应拦截器
     service.interceptors.response.use(function(response) {
       if (response) {
-        return response
+        return response.data.result
       } else {
         return Promise.reject()
       }

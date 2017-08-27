@@ -23,7 +23,7 @@ export default class BaseService {
     // 响应拦截器
     service.interceptors.response.use(function(response) {
       if (response) {
-        return response.data.result
+        return response.data
       } else {
         return Promise.reject()
       }

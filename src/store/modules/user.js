@@ -70,8 +70,8 @@ const User = {
         // }
 
         userService.login(loginInfo).then(response => {
-          commit(TYPES.USER.LOGIN, response)
-          resolve(response)
+          commit(TYPES.USER.LOGIN, response.result)
+          resolve(response.result)
         }).catch(error => {
           reject(error)
         })

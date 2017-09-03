@@ -5,7 +5,6 @@ const clazzService = new ClazzService()
 const Clazz = {
   namespaced: true,
   state: {
-    clazzList: [],
     showCreateDialog: false
   },
   getters: {
@@ -27,12 +26,12 @@ const Clazz = {
 
   },
   actions: {
-    getAllClazz({ commit }) {
+    queryAll({ commit }) {
       return new Promise((resolve, reject) => {
         clazzService.queryAll().then(response => {
-          commit(TYPES.CLAZZ.SET_ALL_CLAZZ, response.data)
-          resolve(response.data)
+          resolve(response.result)
         }).catch(error => {
+          debugger
           reject(error)
         })
       })
@@ -47,6 +46,15 @@ const Clazz = {
       return new Promise((resolve, reject) => {
         clazzService.create().then(response => {
           commit(TYPES.CLAZZ.CREATE, name)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    delete(id) {
+      return new Promise((resolve, reject) => {
+        clazzService.delete(id).then(response => {
           resolve()
         }).catch(error => {
           reject(error)

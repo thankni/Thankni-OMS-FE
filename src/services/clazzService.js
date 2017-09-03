@@ -9,14 +9,13 @@ export default class ClazzService extends BaseService {
     }, setting))
   }
 
-  query(params) {
-    return this.service.get('/order/query', { params: params })
-  }
   queryAll() {
-    return this.service.get('/order/queryAll')
+    return this.service.get('/clazz')
   }
-  create(params) {
-    return this.service.post('/order/create', params)
+
+  delete(id) {
+    return this.service.delete('/clazz/' + id)
   }
+
 
 }

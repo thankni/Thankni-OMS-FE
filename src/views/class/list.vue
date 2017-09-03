@@ -9,12 +9,12 @@
       stripe
       style="width: 100%">
       <el-table-column
-        prop="date"
+        prop="name"
         label="名称"
         width="180">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="description"
         label="描述">
       </el-table-column>
       <el-table-column
@@ -22,11 +22,11 @@
         align="center"
         width="100">
         <template scope="scope">
-          <el-button size="small" @click="deletes(scope.row)">删除</el-button>
+          <el-button size="small" @click="deletes(scope)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <class-create :p_dialog-show.sync="showCreateClassDialog"></class-create>
+    <class-create :p_dialog-show.sync="showCreateClassDialog" v-on:createdClazz="pushNewClazz"></class-create>
   </div>
 </template>
 
@@ -37,27 +37,7 @@
     components: { ClassCreate },
     data() {
       return {
-        tableData: [{
-          id: 1,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          id: 2,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          id: 3,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          id: 4,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
+        tableData: [],
         showCreateClassDialog: false
       }
     },
@@ -68,19 +48,31 @@
     },
     methods: {
       ...mapActions('clazz', [
-        'showCreateDialog'
+        'showCreateDialog',
+        'queryAll',
+        'delete'
       ]),
       toShowCreateClassDialog() {
-        this.$store.dispatch('clazz/showCreateDialog')
+        this.showCreateDialog()
       },
       deletes(item) {
+        debugger
+        this.delete(item.row.id).then(response => {
+          this.tableData.splice(item.$index, 1)
+        })
+      },
+      pushNewClazz() {
 
       }
     },
     created() {
       // 获取所有类别
-      debugger
-      this.$store.dispatch('clazz/getAllClazz')
+      this.queryAll().then(response => {
+        this.tableData = response
+      }).catch(error => {
+        error
+        debugger
+      })
     }
 
   }

@@ -22,12 +22,14 @@ export default class BaseService {
 
     // 响应拦截器
     service.interceptors.response.use(function(response) {
-      if (response) {
+      debugger
+      if (response.status === 200 && response.data.status === 200) {
         return response.data
       } else {
-        return Promise.reject()
+        return Promise.reject(response.data || null)
       }
     }, function(error) {
+      debugger
       // Do something with response error
       return Promise.reject(error)
     })

@@ -1,4 +1,5 @@
 var path = require('path')
+var webpack = require('webpack')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
@@ -94,6 +95,11 @@ var webpackConfig = {
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      _: "lodash"
+    })
+  ],
   eslint: {
     formatter: require('eslint-friendly-formatter')
   },

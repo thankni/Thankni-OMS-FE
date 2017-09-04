@@ -20,25 +20,29 @@
       <el-table-column
         label="操作"
         align="center"
-        width="100">
+        width="180">
         <template scope="scope">
+          <el-button type="primary" size="small" @click="edits(scope.row)">编辑</el-button>
           <el-button size="small" @click="deletes(scope)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <class-create :p_dialog-show.sync="showCreateClassDialog" v-on:createdClazz="pushNewClazz"></class-create>
+    <clazz-create :p_dialog-show.sync="showCreateClassDialog" :p_update-clazz="updateClazz" v-on:createdClazz="pushNewClazz" v-on:updateClazz="updateThisClazz"></clazz-create>
   </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import ClassCreate from './create.vue'
+  import ClazzCreate from './create.vue'
+  import ClazzService from '../../services/clazz'
+  let clazzService = new ClazzService()
   export default {
-    components: { ClassCreate },
+    components: { ClazzCreate },
     data() {
       return {
         tableData: [],
-        showCreateClassDialog: false
+        showCreateClassDialog: false,
+        updateClazz: {}
       }
     },
     computed: {
@@ -48,30 +52,55 @@
     },
     methods: {
       ...mapActions('clazz', [
-        'showCreateDialog',
-        'queryAll',
-        'delete'
+        'showCreateDialog'
       ]),
       toShowCreateClassDialog() {
         this.showCreateDialog()
       },
       deletes(item) {
-        debugger
-        this.delete(item.row.id).then(response => {
-          this.tableData.splice(item.$index, 1)
+        this.$confirm('删除前请确认已经删除相关产品！', '提示', {
+          confirmButtonText: '删除',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          clazzService.delete(item.row.id).then(response => {
+            this.tableData.splice(item.$index, 1)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          })
         })
       },
-      pushNewClazz() {
-
+      edits(clazz) {
+        this.updateClazz = clazz
+        this.showCreateDialog()
+      },
+      pushNewClazz(newClazz) {
+        this.tableData.push(newClazz)
+        this.$message({
+          type: 'success',
+          message: '新增成功!'
+        })
+      },
+      updateThisClazz(clazz) {
+        this.updateClazz.name = clazz.name
+        this.updateClazz.description = clazz.description
+        this.$message({
+          type: 'success',
+          message: '更新成功!'
+        })
       }
     },
     created() {
       // 获取所有类别
-      this.queryAll().then(response => {
-        this.tableData = response
+      clazzService.queryAll().then(response => {
+        this.tableData = response.result
       }).catch(error => {
-        error
-        debugger
+        this.$message({
+          message: error.msg,
+          type: 'error'
+        })
       })
     }
 

@@ -43,8 +43,8 @@
       <el-input type="textarea" v-model="ruleForm.desc"></el-input>
     </el-form-item>
     <el-form-item label-width="100px">
-      <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+      <el-button @click="resetForm('ruleForm')">返回</el-button>
     </el-form-item>
   </el-form>
 </template>

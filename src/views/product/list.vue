@@ -74,6 +74,9 @@
         filterTag(value, row) {
           return row.tag === value
         }
+      },
+      created() {
+
       }
     }
   </script>

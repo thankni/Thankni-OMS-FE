@@ -1,5 +1,5 @@
 import * as TYPES from '../mutation-type'
-const Clazz = {
+const Product = {
   namespaced: true,
   state: {
     showCreateDialog: false
@@ -32,4 +32,4 @@ const Clazz = {
   }
 }
 
-export default Clazz
+export default Product

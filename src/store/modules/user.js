@@ -1,5 +1,5 @@
 import * as TYPES from '../mutation-type'
-import UserService from '../../services/userService'
+import UserService from '../../services/user'
 const userService = new UserService()
 const User = {
   namespaced: true,

@@ -29,5 +29,8 @@ module.exports = {
       "no-inline-comments": 2,
       "space-before-function-paren": ["error", "never"],
       "no-multiple-empty-lines": [1, {"max": 2}]
-    }
+    },
+  "globals": {
+    "_": true
+  }
 }

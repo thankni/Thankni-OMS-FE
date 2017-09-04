@@ -18,7 +18,7 @@ Mock.mock(/\/user\/login/, 'post', function(config) {
 })
 // 新增一个分类
 Mock.mock(/\/clazz/, 'post', function() {
-  return formatResponse(Random.integer(2999, 99999))
+  return formatResponse({id: Random.integer(2999, 99999)})
 })
 // 获取所有分类
 Mock.mock(/\/clazz/, 'get', function() {
@@ -51,15 +51,9 @@ Mock.mock(/\/clazz\/[0-9]*/, 'delete', function() {
   ])
 })
 
-// 获取所有分类
-Mock.mock(/\/order\/queryAll/, 'get', function(config) {
-  return formatResponse({
-    username: JSON.parse(config.body).username,
-    token: '3Qr3-f3Xf-h6Fj-2wwe-23L2-nnH4',
-    permissions: ['/order/list', '/order/detail'],
-    role: 'superAdmin'
-
-  })
+// 修改分类
+Mock.mock(/\/clazz/, 'put', function(config) {
+  return formatResponse(null)
 })
 
 function formatResponse(data) {

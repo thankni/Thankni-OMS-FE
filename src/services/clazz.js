@@ -1,4 +1,4 @@
-import BaseService from './baseService'
+import BaseService from './base'
 import serverConfig from '../config/server'
 
 export default class ClazzService extends BaseService {
@@ -9,10 +9,15 @@ export default class ClazzService extends BaseService {
     }, setting))
   }
 
+  create(clazz) {
+    return this.service.post('/clazz', clazz)
+  }
   queryAll() {
     return this.service.get('/clazz')
   }
-
+  update(clazz) {
+    return this.service.put('/clazz', clazz)
+  }
   delete(id) {
     return this.service.delete('/clazz/' + id)
   }

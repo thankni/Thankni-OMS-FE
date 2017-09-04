@@ -22,7 +22,6 @@ export default class BaseService {
 
     // 响应拦截器
     service.interceptors.response.use(function(response) {
-      debugger
       if (response.status === 200 && response.data.status === 200) {
         return response.data
       } else {

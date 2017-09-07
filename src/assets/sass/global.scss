@@ -1,3 +1,4 @@
+
 a {
   text-decoration: none;
 }
@@ -15,4 +16,14 @@ a {
   display: flex;
   justify-content:center;
   margin-top: 10px;
+}
+
+
+.second-router-view{
+  flex:1;
+  overflow: auto;
+}
+.second-router-view-content{
+  padding: 10px;
+  min-width: 1024px;
 }

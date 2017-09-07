@@ -5,7 +5,9 @@
       <el-menu-item index="2" @click="routerLink('/product/class')"><i class="el-icon-setting"></i>所有类别</el-menu-item>
       <el-menu-item index="3" @click="routerLink('/product/create')"><i class="el-icon-menu"></i>新增产品</el-menu-item>
     </el-menu>
-    <router-view class="order-content"></router-view>
+    <div class="second-router-view">
+      <router-view class="second-router-view-content"></router-view>
+    </div>
   </div>
 </template>
 
@@ -23,8 +25,6 @@
   flex-basis: 180px;
 }
 .order-content {
-  flex:1;
-  overflow: auto;
-  padding: 10px;
+
 }
 </style>

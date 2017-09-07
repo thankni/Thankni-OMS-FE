@@ -11,7 +11,7 @@
           prop="name"
           label="名称"
           sortable
-          width="180">
+          width="130">
         </el-table-column>
         <el-table-column
           prop="clazz.name"
@@ -46,10 +46,11 @@
         <el-table-column
           label="操作"
           align="center"
-          width="180">
+          width="200">
           <template scope="scope">
-            <el-button type="primary" size="small" @click="edits(scope.row)">编辑</el-button>
-            <el-button size="small" @click="deletes(scope)">删除</el-button>
+            <el-button type="default" size="small" @click="edits(scope.row)">详情</el-button>
+            <el-button type="info" size="small" @click="edits(scope.row)">编辑</el-button>
+            <el-button type="danger"size="small"  @click="deletes(scope)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

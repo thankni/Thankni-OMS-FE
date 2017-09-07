@@ -72,7 +72,6 @@
       float: right;
       margin-right: 50px;
     }
-
   }
 </style>
 

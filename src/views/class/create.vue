@@ -8,10 +8,10 @@
         <el-input type="textarea" placeholder="对该分类的一些介绍" name="description" v-model="clazzForm.description"></el-input>
       </el-form-item>
     </el-form>
-    <div class="dialog-footer btn-group-center">
-      <el-button @click="toggle(false)">取 消</el-button>
-      <el-button type="primary" @click="comfirm">保 存</el-button>
-    </div>
+    <el-row type="flex" justify="end">
+      <el-button @click="toggle(false)">取消</el-button>
+      <el-button type="primary" @click="comfirm">保存</el-button>
+    </el-row>
   </el-dialog>
 </template>
 <script>

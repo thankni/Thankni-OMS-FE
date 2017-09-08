@@ -85,15 +85,17 @@
           <el-form-item label="轮播图" prop="name">
             <el-upload
               class="upload-demo"
-              ref="upload"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              ref="swipe"
+              :data="uploadData"
+              action="http://up-z1.qiniu.com"
+              :before-upload="beforeUpload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
               :file-list="fileList"
               list-type="picture"
               :auto-upload="false">
               <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload('swipe')">上传到服务器</el-button>
             </el-upload>
           </el-form-item>
         </el-col>
@@ -102,7 +104,7 @@
           <el-form-item label="详情图" prop="region">
             <el-upload
               class="upload-demo"
-              ref="upload"
+              ref="detail"
               action="https://jsonplaceholder.typicode.com/posts/"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
@@ -110,7 +112,7 @@
               list-type="picture"
               :auto-upload="false">
               <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload('detail')">上传到服务器</el-button>
             </el-upload>
           </el-form-item>
         </el-col>
@@ -119,7 +121,7 @@
           <el-form-item label="页脚" prop="name">
             <el-upload
               class="upload-demo"
-              ref="upload"
+              ref="footer"
               action="https://jsonplaceholder.typicode.com/posts/"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
@@ -127,7 +129,7 @@
               list-type="picture"
               :auto-upload="false">
               <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload('footer')">上传到服务器</el-button>
             </el-upload>
           </el-form-item>
         </el-col>
@@ -143,6 +145,11 @@
 
 </template>
 <script>
+  import serverConfig from '../../config/server'
+//  import ImageService from '../../services/image'
+//  import appInfo from '../../config'
+
+//  let imageService = new ImageService()
   export default {
     data() {
       return {
@@ -179,7 +186,9 @@
           desc: [
             { required: true, message: '请填写活动形式', trigger: 'blur' }
           ]
-        }
+        },
+        imageServer: serverConfig.IMAGE,
+        uploadData: ''
       }
     },
     methods: {
@@ -194,6 +203,34 @@
       resetForm(formName) {
         this.$refs[formName].resetFields()
         this.$router.go(-1)
+      },
+      submitUpload(ref) {
+        debugger
+        this.$refs[ref].submit()
+      },
+      beforeUpload(file) {
+//        let putPolicy = {
+//          bucket: appInfo.qiniuImageBucket,
+//          key: null,
+//          deadline: Math.round(new Date().getTime()) + 30,
+//          policy: {
+//
+//          }
+//        }
+        return new Promise((resolve, reject) => {
+          this.uploadData = {
+            key: 'aaa',
+            token: 'I7F2D0oeSz9LanpHH_1P0YuI87XJzNspv0qDWaPo:6jV5InLXbGW5g7MRyexDAhRRNS0=:eyJzY29wZSI6InRoYW5rbmk6YWFhIiwiZGVhZGxpbmUiOjE1MDQ4ODYzODZ9'
+          }
+          resolve(true)
+//          imageService.getUploadToken().then(response => {
+//
+//            resolve(true)
+//          }).catch(error => {
+//
+//            reject(reject)
+//          })
+        })
       }
     }
   }

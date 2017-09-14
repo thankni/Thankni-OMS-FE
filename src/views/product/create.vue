@@ -79,61 +79,9 @@
         </el-col>
       </el-row>
 
+      <hr>
 
-      <el-row :gutter="10">
-        <el-col :span="8">
-          <el-form-item label="轮播图" prop="name">
-            <el-upload
-              class="upload-demo"
-              ref="swipe"
-              :data="uploadData"
-              action="http://up-z1.qiniu.com"
-              :before-upload="beforeUpload"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :file-list="fileList"
-              list-type="picture"
-              :auto-upload="false">
-              <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload('swipe')">上传到服务器</el-button>
-            </el-upload>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="8">
-          <el-form-item label="详情图" prop="region">
-            <el-upload
-              class="upload-demo"
-              ref="detail"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :file-list="fileList"
-              list-type="picture"
-              :auto-upload="false">
-              <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload('detail')">上传到服务器</el-button>
-            </el-upload>
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="8">
-          <el-form-item label="页脚" prop="name">
-            <el-upload
-              class="upload-demo"
-              ref="footer"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :file-list="fileList"
-              list-type="picture"
-              :auto-upload="false">
-              <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload('footer')">上传到服务器</el-button>
-            </el-upload>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <qiniu-manual-upload ref="qiniuManualUpload" :p_ref="swipe" v-bind:p_autoUpload="false"></qiniu-manual-upload>
 
       <el-row type="flex" justify="center">
         <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
@@ -145,14 +93,15 @@
 
 </template>
 <script>
-  import serverConfig from '../../config/server'
-//  import ImageService from '../../services/image'
-//  import appInfo from '../../config'
+  import qiniuManualUpload from '../../components/qiniuManualUpload.vue'
 
-//  let imageService = new ImageService()
+  import serverConfig from '../../config/server'
   export default {
+    components: { qiniuManualUpload },
     data() {
       return {
+        swipe: 'swipe',
+        QINIU_HB: serverConfig.QINIU_HB,
         ruleForm: {
           name: '',
           region: '',
@@ -188,50 +137,33 @@
           ]
         },
         imageServer: serverConfig.IMAGE,
-        uploadData: ''
+        uploadData: {}
       }
     },
     methods: {
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-          } else {
-            return false
-          }
-        })
+        debugger
+
+        this.$refs.qiniuManualUpload.$submitUpload()
+
+//        this.$refs[formName].validate((valid) => {
+//          if (valid) {
+//          } else {
+//            return false
+//          }
+//        })
       },
       resetForm(formName) {
         this.$refs[formName].resetFields()
         this.$router.go(-1)
-      },
-      submitUpload(ref) {
-        debugger
-        this.$refs[ref].submit()
-      },
-      beforeUpload(file) {
-//        let putPolicy = {
-//          bucket: appInfo.qiniuImageBucket,
-//          key: null,
-//          deadline: Math.round(new Date().getTime()) + 30,
-//          policy: {
-//
-//          }
-//        }
-        return new Promise((resolve, reject) => {
-          this.uploadData = {
-            key: 'aaa',
-            token: 'I7F2D0oeSz9LanpHH_1P0YuI87XJzNspv0qDWaPo:6jV5InLXbGW5g7MRyexDAhRRNS0=:eyJzY29wZSI6InRoYW5rbmk6YWFhIiwiZGVhZGxpbmUiOjE1MDQ4ODYzODZ9'
-          }
-          resolve(true)
-//          imageService.getUploadToken().then(response => {
-//
-//            resolve(true)
-//          }).catch(error => {
-//
-//            reject(reject)
-//          })
-        })
       }
+
+    },
+    created() {
+      this.$on(this.swipe + 'OnSuccess', function(s) {
+        s
+        debugger
+      })
     }
   }
 </script>

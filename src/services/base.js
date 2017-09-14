@@ -2,10 +2,10 @@ import axios from 'axios'
 
 export default class BaseService {
   constructor(config) {
-    this.config = {
+    this.config = Object.assign({
       responseType: 'json',
       timeout: 5000
-    }
+    }, config)
 
     this.requestWhiteList = ['login']
     this.responsetWhiteList = ['login']
@@ -14,6 +14,7 @@ export default class BaseService {
 
     // 请求拦截器
     service.interceptors.request.use(request => {
+      debugger
       // do something before request
       return request
     }, error => {

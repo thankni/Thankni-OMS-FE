@@ -13,5 +13,8 @@ export default class ImageService extends BaseService {
     return this.service.post('/qiniu/getUploadToken', putPolicy)
   }
 
+  deleteFileFromQiniu(encodedEntryURI) {
+    return this.service.post('/delete/' + encodedEntryURI)
+  }
 
 }

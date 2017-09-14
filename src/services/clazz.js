@@ -10,6 +10,7 @@ export default class ClazzService extends BaseService {
   }
 
   create(clazz) {
+    this.config
     return this.service.post('/clazz', clazz)
   }
   queryAll() {

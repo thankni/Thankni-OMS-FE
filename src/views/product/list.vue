@@ -112,6 +112,7 @@
         }
       },
       created() {
+        debugger
         productService.queryAll().then(response => {
           this.tableData = response.result
         }).catch(error => {

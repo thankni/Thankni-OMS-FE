@@ -9,12 +9,16 @@ const CONST = {
   TEST: {
     OMS: 'http://api.test.com/api1',
     SERVER_2: 'http://api.test.com/api2',
-    IMAGE: 'http://image.thankni.com'
+    IMAGE: 'http://image.thankni.com',
+    QINIU_HB: 'http://upload-z1.qiniu.com',
+    QINIU_RS: 'http://rs.qiniu.com'
   },
   PRODUCTION: {
     OMS: 'http://api.online.com/api1',
     SERVER_2: 'http://api.online.com/api2',
-    IMAGE: 'http://image.thankni.com'
+    IMAGE: 'http://image.thankni.com',
+    QINIU_HB: 'http://upload-z1.qiniu.com',
+    QINIU_RS: 'http://rs.qiniu.com'
   }
 }
 

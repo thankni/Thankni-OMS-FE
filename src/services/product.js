@@ -9,14 +9,14 @@ export default class ProductService extends BaseService {
     }, setting))
   }
 
-  create(clazz) {
-    return this.service.post('/product', clazz)
+  create(product) {
+    return this.service.post('/product', product)
   }
   queryAll() {
     return this.service.get('/product')
   }
-  update(clazz) {
-    return this.service.put('/product', clazz)
+  update(product) {
+    return this.service.put('/product', product)
   }
   delete(id) {
     return this.service.delete('/product/' + id)

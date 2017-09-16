@@ -45,16 +45,11 @@ Mock.mock(/\/clazz/, 'put', function (config) {
   return formatResponse(null)
 })
 
-function formatResponse(data) {
-  return {
-    status: 200,
-    msg: 'success',
-    result: data
-  }
-}
 
-
-
+// 新增商品
+Mock.mock(/\/product/, 'post', function () {
+  return formatResponse({id: Random.integer(2999, 99999)})
+})
 // 删除商品
 Mock.mock(/\/product\/[0-9]*/, 'delete', function () {
   return formatResponse(null)
@@ -118,5 +113,11 @@ Mock.mock(/\/product/, 'get', function () {
   }])
 })
 
-
+function formatResponse(data) {
+  return {
+    status: 200,
+    msg: 'success',
+    result: data
+  }
+}
 export default Mock

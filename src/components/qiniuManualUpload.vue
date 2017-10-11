@@ -62,16 +62,16 @@
         default: true
       },
       p_emitBeforeUpload: {
-        type: Function
+        type: String
       },
       p_emitOnSuccess: {
-        type: Function
+        type: String
       },
       p_emitOnRemove: {
-        type: Function
+        type: String
       },
       p_emitOnError: {
-        type: Function
+        type: String
       }
     },
 
@@ -92,12 +92,12 @@
         }
 //        this.p_emitBeforeUpload ? this.$emit(this.p_emitBeforeUpload, file) : ''
 //        let key = new Date().getTime() + '_' + file.name
-//        let putPolicy = {
+//        let options = {
 //          bucket: appInfo.qiniuImageBucket + ':' + key, // 存储空间名 : 保存后的文件名（key）
 //          deadline: Math.round(new Date().getTime()) + 30 // token 失效时间
 //        }
 //        return new Promise((resolve, reject) => {
-//          imageUploadService.getUploadToken(putPolicy).then(response => {
+//          imageUploadService.getUploadToken(options).then(response => {
 //            this.p_data = {
 //              token: response.result.token,
 //              key: key

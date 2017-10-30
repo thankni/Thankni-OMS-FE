@@ -14,7 +14,7 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "axios": "^0.16.2",
-    "cookie-in-vue": "^0.1.7",
+    "cookie-in-vue": "^0.1.8",
     "element-ui": "^1.4.1",
     "lodash": "^4.17.4",
     "mockjs": "^1.0.1-beta3",
